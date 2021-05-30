@@ -4,12 +4,15 @@ import App from "../App";
 import CommentBox from "../CommentBox";
 import CommentList from "../CommentList";
 
+let wrapped;
+beforeEach(() => {
+  wrapped = shallow(<App />);
+});
+
 test("shows a comment box", () => {
-  const wrapped = shallow(<App />);
   expect(wrapped.find(CommentBox)).toHaveLength(1);
 });
 
 test("shows comment list", () => {
-  const wrapped = shallow(<App />);
   expect(wrapped.find(CommentList)).toHaveLength(1);
 });
