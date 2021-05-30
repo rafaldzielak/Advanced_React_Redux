@@ -1,9 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { shallow } from "enzyme";
 import App from "../App";
-import { screen, render } from "@testing-library/react";
+import CommentBox from "../CommentBox";
+import CommentList from "../CommentList";
 
 test("shows a comment box", () => {
-  render(<App />);
-  screen.getByText(/comment box/i);
+  const wrapped = shallow(<App />);
+  expect(wrapped.find(CommentBox)).toHaveLength(1);
+});
+
+test("shows comment list", () => {
+  const wrapped = shallow(<App />);
+  expect(wrapped.find(CommentList)).toHaveLength(1);
 });
