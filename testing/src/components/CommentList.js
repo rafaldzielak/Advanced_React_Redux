@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const CommentList = () => {
   const comments = useSelector((state) => state.comments);
   const renderComments = (comments) => {
-    return comments.map((comment) => <li key={comment}>{comment}</li>);
+    return comments?.map((comment) => <li key={comment}>{comment}</li>);
   };
   return (
     <div>
