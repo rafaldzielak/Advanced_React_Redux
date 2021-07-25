@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchComments, saveComment } from "../actions";
+import requireAuth from "./RequiredAuth";
 
 const CommentBox = () => {
-  const [comment, setComment] = useState("");
   const dispatch = useDispatch();
+
+  const [comment, setComment] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
     setComment("");
     dispatch(saveComment(comment));
   };
+
   return (
     <>
       <form onSubmit={submitHandler}>
@@ -26,4 +29,4 @@ const CommentBox = () => {
   );
 };
 
-export default CommentBox;
+export default requireAuth(CommentBox);
