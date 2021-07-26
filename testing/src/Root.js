@@ -3,9 +3,10 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import reducers from "./reducers";
 import thunk from "redux-thunk";
+import asyncMiddleware from "./middlewares/async";
 
 const Root = ({ children, initialState = {} }) => {
-  const store = createStore(reducers, initialState, applyMiddleware(thunk));
+  const store = createStore(reducers, initialState, applyMiddleware(asyncMiddleware));
   return <Provider store={store}>{children}</Provider>;
 };
 
