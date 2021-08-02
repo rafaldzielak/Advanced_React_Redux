@@ -3,7 +3,7 @@ import { randomBytes } from "crypto";
 
 const app = express();
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const posts = {};
