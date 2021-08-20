@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-depl
+spec:
+  replicas: 1 # number of pods we want to create running the same image
+  selector:
+    matchLabels:
+      app: posts # look at all the pods with a label of app: posts
+  template: # where we specify the exact configuration of a pod that we want this deployment to create
+    metadata:
+      labels:
+        app: posts
+    spec: # specification options where the pod that we're trying to make
+      containers:
+        - name: posts
+          image: dyrektorek/posts
