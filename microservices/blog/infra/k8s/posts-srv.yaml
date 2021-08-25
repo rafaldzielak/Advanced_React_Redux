@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+spec:
+  type: NodePort
+  selector:
+    app: posts #tell the service to find all the different pods with label 'app: posts' and expose these pods to the outside world
+  ports: #list of ports to expose on a target pod
+    - name: posts
+      protocol: TCP
+      port: 4000 #port on the node port service
+      targetPort: 4000 #app is listening on that port
