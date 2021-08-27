@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-depl
+spec:
+  replicas: 1 # number of pods we want to create running the same image
+  selector:
+    matchLabels:
+      app: event-bus # look at all the pods with a label of app: event-bus
+  template: # where we specify the exact configuration of a pod that we want this deployment to create
+    metadata:
+      labels:
+        app: event-bus
+    spec: # specification options where the pod that we're trying to make
+      containers:
+        - name: event-bus
+          image: dyrektorek/event-bus
