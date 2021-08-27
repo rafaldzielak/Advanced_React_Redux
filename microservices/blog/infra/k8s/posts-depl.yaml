@@ -15,3 +15,18 @@ spec:
       containers:
         - name: posts
           image: dyrektorek/posts
+# config to create cluster IP service:
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-clusterip-srv
+spec:
+  selector:
+    app: posts
+  type: ClusterIP # it's by default (it's not needed here)
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

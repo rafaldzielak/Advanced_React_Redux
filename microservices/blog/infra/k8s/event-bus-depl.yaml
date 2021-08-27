@@ -15,3 +15,18 @@ spec:
       containers:
         - name: event-bus
           image: dyrektorek/event-bus
+# config to create cluster IP service:
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-srv
+spec:
+  selector:
+    app: event-bus
+  type: ClusterIP # it's by default (it's not needed here)
+  ports:
+    - name: event-bus
+      protocol: TCP
+      port: 4005
+      targetPort: 4005
