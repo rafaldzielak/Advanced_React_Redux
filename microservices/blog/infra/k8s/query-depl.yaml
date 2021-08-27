@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-depl
+spec:
+  replicas: 1 # number of pods we want to create running the same image
+  selector:
+    matchLabels:
+      app: query # look at all the pods with a label of app: query
+  template: # where we specify the exact configuration of a pod that we want this deployment to create
+    metadata:
+      labels:
+        app: query
+    spec: # specification options where the pod that we're trying to make
+      containers:
+        - name: query
+          image: dyrektorek/query
+# config to create cluster IP service:
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+spec:
+  selector:
+    app: query
+  type: ClusterIP # it's by default (it's not needed here)
+  ports:
+    - name: query
+      protocol: TCP
+      port: 4002
+      targetPort: 4002
