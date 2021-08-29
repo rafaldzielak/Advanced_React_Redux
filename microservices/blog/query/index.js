@@ -3,9 +3,9 @@ import cors from "cors";
 import axios from "axios";
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 const posts = {};
 
@@ -29,6 +29,7 @@ const handleEvent = (type, data) => {
 };
 
 app.get("/posts", (req, res) => {
+  console.log(posts);
   res.send(posts);
 });
 
