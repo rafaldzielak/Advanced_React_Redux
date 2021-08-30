@@ -1,4 +1,5 @@
 import express from "express";
+import { errorHandler } from "./middlewares/error-handler";
 import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signin";
 import { signUpRouter } from "./routes/signup";
@@ -12,5 +13,7 @@ app.use(currentUserRouter);
 app.use(signUpRouter);
 app.use(signInRouter);
 app.use(singOutRouter);
+
+app.use(errorHandler);
 
 app.listen(3000, () => console.log("Listening on port 3000"));
