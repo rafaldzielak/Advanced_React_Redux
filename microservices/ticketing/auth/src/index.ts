@@ -1,4 +1,5 @@
 import express from "express";
+import { NotFoundError } from "./errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
 import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signin";
@@ -13,6 +14,10 @@ app.use(currentUserRouter);
 app.use(signUpRouter);
 app.use(signInRouter);
 app.use(singOutRouter);
+
+app.all("*", () => {
+  throw new NotFoundError();
+});
 
 app.use(errorHandler);
 
