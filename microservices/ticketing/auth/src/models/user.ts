@@ -26,6 +26,6 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 };
 
 const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
-
+ 
 User.build({ email: "asdkjas", password: "askldjasld" });
 export { User };
