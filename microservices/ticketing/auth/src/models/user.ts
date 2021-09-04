@@ -10,7 +10,7 @@ interface UserModel extends mongoose.Model<UserDoc> {
   build(attrs: UserAttrs): UserDoc;
 }
 
-// Interface that describes that a User Document has
+// Interface that describes that a sinle User Document has
 interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
@@ -26,6 +26,5 @@ userSchema.statics.build = (attrs: UserAttrs) => {
 };
 
 const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
- 
-User.build({ email: "asdkjas", password: "askldjasld" });
+
 export { User };

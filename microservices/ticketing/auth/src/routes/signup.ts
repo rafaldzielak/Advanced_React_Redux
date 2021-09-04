@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
+import { BadRequestError } from "../errors/bad-request-error";
+import { CustomError } from "../errors/custom-error";
 import { RequestValidationError } from "../errors/request-validation-error";
 import { User } from "../models/user";
 
@@ -20,9 +22,11 @@ router.post(
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log("Email in use");
-      return res.send({});
+      const error = new BadRequestError("Email in use");
+      console.log(error instanceof CustomError);
+      throw error;
     }
+
     const user = User.build({ email, password });
     await user.save();
     res.status(201).send(user);
