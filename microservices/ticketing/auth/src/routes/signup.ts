@@ -21,11 +21,7 @@ router.post(
     if (!errors.isEmpty()) throw new RequestValidationError(errors.array());
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      const error = new BadRequestError("Email in use");
-      console.log(error instanceof CustomError);
-      throw error;
-    }
+    if (existingUser) throw new BadRequestError("Email in use");
 
     const user = User.build({ email, password });
     await user.save();
