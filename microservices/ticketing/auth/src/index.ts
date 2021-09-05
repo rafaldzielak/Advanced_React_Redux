@@ -27,6 +27,7 @@ app.all("*", async () => {
 app.use(errorHandler);
 
 const start = async () => {
+  if (!process.env.jwt) throw new Error("jwt env variable must be defined");
   try {
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth", {});
     console.log("Connected to DB");
