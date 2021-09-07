@@ -25,4 +25,4 @@ app.all("*", async () => {
 
 app.use(errorHandler);
 
-export {app}
+export { app };
