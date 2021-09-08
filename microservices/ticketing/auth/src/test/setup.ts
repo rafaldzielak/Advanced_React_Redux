@@ -1,7 +1,16 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { app } from "../app";
+import request from "supertest";
 
+// This will be available only in test environment
+export const signin = async () => {
+  const email = "rafa.dyrektorek@gmail.com";
+  const password = "password";
+  const response = await request(app).post("/api/users/signup").send({ email, password }).expect(201);
+  const cookie = response.get("Set-Cookie");
+  return cookie;
+};
 let mongo: any;
 beforeAll(async () => {
   process.env.jwt = "lajshdaksj";
