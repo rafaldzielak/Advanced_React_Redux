@@ -12,7 +12,7 @@ const app = express();
 app.set("trust proxy", true); //for ngingx
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieSession({ signed: false, secure: true })); // signed: false for not encrypting the JWT, secure for https site only
+app.use(cookieSession({ signed: false, secure: process.env.NODE_ENV !== "test" })); // signed: false for not encrypting the JWT, secure for https site only
 
 app.use(currentUserRouter);
 app.use(signUpRouter);
