@@ -10,7 +10,11 @@ spec:
     - host: ticketing.dev
       http:
         paths:
-          - path: /api/users/?(.*)
+          - path: /api/users/?(.*) # first the request will want to match to this path
             backend: #queries with the path above will be send to this backend:
               serviceName: auth-srv
+              servicePort: 3000
+          - path: /?(.*)
+            backend:
+              serviceName: client-srv
               servicePort: 3000
