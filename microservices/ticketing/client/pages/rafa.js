@@ -1,7 +1,7 @@
 import React from "react";
 
 const rafa = () => {
-  return <div>RAfa2</div>;
+  return <h1>RAfa2</h1>;
 };
 
 export default rafa;
