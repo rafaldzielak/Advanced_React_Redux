@@ -1,5 +1,5 @@
-import axios from "axios";
 import React from "react";
+import buildClient from "../api/build-client";
 
 const LandingPage = ({ currentUser }) => {
   console.log(currentUser);
@@ -7,17 +7,10 @@ const LandingPage = ({ currentUser }) => {
 };
 
 // specific to next.js - if we implement it - next.js will call this function while rendering the app on the server, any data returned from the function will be available as a prop
-LandingPage.getInitialProps = async ({ req, res }) => {
-  if (typeof window === "undefined") {
-    const { data } = await axios.get(
-      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
-      { headers: req.headers }
-    );
-    return data;
-  } else {
-    const { data } = await axios.get("/api/users/currentuser");
-    return data;
-  }
+LandingPage.getInitialProps = async (context) => {
+  const client = buildClient(context);
+  const { data } = await client.get("/api/users/currentuser");
+  return data;
 };
 
 export default LandingPage;
