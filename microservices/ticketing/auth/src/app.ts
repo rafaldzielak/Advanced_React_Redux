@@ -1,12 +1,11 @@
 import express from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
-import { NotFoundError } from "./errors/not-found-error";
-import { errorHandler } from "./middlewares/error-handler";
+import { NotFoundError, errorHandler } from "@rdticketing/common";
 import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signin";
 import { signUpRouter } from "./routes/signup";
-import { singOutRouter } from "./routes/singout";
+import { singOutRouter } from "./routes/signout";
 
 const app = express();
 app.set("trust proxy", true); //for ngingx

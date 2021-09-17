@@ -1,5 +1,5 @@
 import express from "express";
-import { currentUser } from "../middlewares/current-user";
+import { currentUser } from "@rdticketing/common";
 const router = express.Router();
 
 router.get("/api/users/currentuser", currentUser, (req, res) => {
@@ -7,3 +7,4 @@ router.get("/api/users/currentuser", currentUser, (req, res) => {
 });
 
 export { router as currentUserRouter };
+ 
