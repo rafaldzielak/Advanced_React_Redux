@@ -4,6 +4,7 @@ import { app } from "./app";
 const start = async () => {
   if (!process.env.jwt) throw new Error("jwt env variable must be defined");
   try {
+    if (!process.env.MONGO_URI) throw new Error("MONGO_URI must be defined");
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth", {});
     console.log("Connected to DB");
   } catch (error) {
