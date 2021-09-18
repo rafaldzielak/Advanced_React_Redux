@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// For type checking
 userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
 };
