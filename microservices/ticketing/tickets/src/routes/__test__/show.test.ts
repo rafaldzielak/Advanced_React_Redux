@@ -1,6 +1,5 @@
 import request = require("supertest");
 import { app } from "../../app";
-import { Ticket } from "../../models/ticket";
 import { signin } from "../../test/setup";
 import mongoose from "mongoose";
 
