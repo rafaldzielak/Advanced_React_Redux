@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 // This will be available only in test environment
 export const signin = () => {
   // Build a JWT payload
-  const payload = { id: "sdlhfrs3", email: "sjdak@gmail.com" };
+  const payload = { id: new mongoose.Types.ObjectId().toHexString(), email: "sjdak@gmail.com" };
   // Create the JWT
   const token = jwt.sign(payload, process.env.jwt!);
   // Build session object

@@ -1,4 +1,3 @@
-import { NotFoundError } from "@rdticketing/common";
 import express, { Request, Response } from "express";
 import { Ticket } from "../models/ticket";
 

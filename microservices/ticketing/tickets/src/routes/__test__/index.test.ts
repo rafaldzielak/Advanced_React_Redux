@@ -1,6 +1,5 @@
 import request = require("supertest");
 import { app } from "../../app";
-import mongoose from "mongoose";
 import { signin } from "../../test/setup";
 
 const createTicket = () => {
