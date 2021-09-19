@@ -14,6 +14,10 @@ spec:
             backend: #queries with the path above will be send to this backend:
               serviceName: auth-srv
               servicePort: 3000
+          - path: /api/tickets/?(.*) # first the request will want to match to this path
+            backend: #queries with the path above will be send to this backend:
+              serviceName: tickets-srv
+              servicePort: 3000
           - path: /?(.*)
             backend:
               serviceName: client-srv
