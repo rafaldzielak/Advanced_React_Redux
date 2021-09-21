@@ -1,12 +1,16 @@
 import nats, { Message } from "node-nats-streaming";
 import { randomBytes } from "crypto";
-import { sign } from "node:crypto";
 console.clear();
 
 const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), { url: "http://localhost:4222" }); // stan is client
 
 stan.on("connect", () => {
   console.log("Listener connected to nats");
+
+  stan.on("close", () => {
+    console.log("NATS connection closed!");
+    process.exit();
+  });
 
   const options = stan.subscriptionOptions().setManualAckMode(true); //setManualAckMode - we set the ack manually, if not ack - it will send the event to another listener
 
@@ -17,3 +21,6 @@ stan.on("connect", () => {
     msg.ack();
   });
 });
+
+process.on("SIGNINT", () => stan.close()); // interupt signal
+process.on("SIGTERM", () => stan.close()); // termination signal
