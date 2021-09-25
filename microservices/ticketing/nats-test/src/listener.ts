@@ -12,7 +12,11 @@ stan.on("connect", () => {
     process.exit();
   });
 
-  const options = stan.subscriptionOptions().setManualAckMode(true); //setManualAckMode - we set the ack manually, if not ack - it will send the event to another listener
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()
+    .setDurableName("accounting-service"); //setManualAckMode - we set the ack manually, if not ack - it will send the event to another listener
 
   const substription = stan.subscribe("ticket:created", "order-service-queue-group", options); //second argument is name of queue group
   substription.on("message", (msg: Message) => {
