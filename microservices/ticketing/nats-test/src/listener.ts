@@ -1,4 +1,4 @@
-import nats, { Message } from "node-nats-streaming";
+import nats, { Message, Stan } from "node-nats-streaming";
 import { randomBytes } from "crypto";
 console.clear();
 
@@ -28,3 +28,27 @@ stan.on("connect", () => {
 
 process.on("SIGNINT", () => stan.close()); // interupt signal
 process.on("SIGTERM", () => stan.close()); // termination signal
+
+abstract class Listener {
+  abstract subject: string;
+  abstract queueGroupName: string;
+  protected ackWait = 5000;
+  private client: Stan;
+  constructor(client: Stan) {
+    this.client = client;
+  }
+  subscriptonOptions() {
+    return this.client
+      .subscriptionOptions()
+      .setDeliverAllAvailable()
+      .setManualAckMode(true)
+      .setAckWait(this.ackWait)
+      .setDurableName(this.queueGroupName);
+  }
+  listen() {
+    const subscription = this.client.subscribe(this.subject, this.queueGroupName, this.subscriptonOptions());
+    subscription.on("message", (msg: Message) => {
+      console.log(`Message received: ${this.subject} / ${this.queueGroupName}`);
+    });
+  }
+}
