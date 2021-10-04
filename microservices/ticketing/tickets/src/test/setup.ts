@@ -17,6 +17,9 @@ export const signin = () => {
   // Return a string - cookie with encoded data
   return [`express:sess=${base64}`];
 };
+
+jest.mock("../nats-wrapper.ts");
+
 let mongo: any;
 beforeAll(async () => {
   process.env.jwt = "lajshdaksj";
