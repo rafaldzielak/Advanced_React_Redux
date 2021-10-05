@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-mongo-depl
+  name: orders-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tickets-mongo # how the deployment is going to find the pod that it actually creates
+      app: orders-mongo # how the deployment is going to find the pod that it actually creates
   template:
     metadata:
       labels:
-        app: tickets-mongo # label applied to the pod
+        app: orders-mongo # label applied to the pod
     spec:
       containers:
-        - name: tickets-mongo
+        - name: orders-mongo
           image: mongo:4.4.8 #from docker hub - official image
 # Service:
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-mongo-srv
+  name: orders-mongo-srv
 spec:
   selector:
-    app: tickets-mongo #which pods it is going to govern access to
+    app: orders-mongo #which pods it is going to govern access to
   ports:
     - name: db # for logging purposes
       protocol: TCP

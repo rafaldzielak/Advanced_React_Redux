@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth-mongo
-          image: mongo #from docker hub - official image
+          image: mongo:4.4.8 #from docker hub - official image
 # Service:
 ---
 apiVersion: v1
