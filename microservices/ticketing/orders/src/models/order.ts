@@ -4,14 +4,14 @@ import { TicketDoc } from "./ticket";
 
 interface OrderAttrs {
   userId: string;
-  status: OrderStatus;
+  status: string;
   expiresAt: Date;
   ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
   userId: string;
-  status: OrderStatus;
+  status: string;
   expiresAt: Date;
   ticket: TicketDoc;
 }
@@ -37,7 +37,7 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-orderSchema.statics.build = () => (attrs: OrderAttrs) => {
+orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs);
 };
 
