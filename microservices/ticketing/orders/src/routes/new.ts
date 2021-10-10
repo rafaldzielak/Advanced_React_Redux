@@ -46,11 +46,12 @@ router.post(
     res.status(201).send(order);
     // TODO: Publish en event
     new OrderCreatedPublisher(natsWrapper.client).publish({
-      id: order.id,
+      id: order.id as string,
+      version: order.version,
       status: order.status,
       userId: order.userId,
       expiresAt: order.expiresAt.toISOString(),
-      ticket: { id: ticket.id, price: ticket.price },
+      ticket: { id: ticket.id as string, price: ticket.price },
     });
   }
 );

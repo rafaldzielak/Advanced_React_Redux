@@ -10,7 +10,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   // msg has ack method (which is importatnt for us)
   async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
     const { id, title, price } = data;
-    const ticket = await Ticket.findById(id);
+    const ticket = await Ticket.findOne({ _id: id, version: data.version - 1 });
     if (!ticket) throw new Error("Ticket not found");
     ticket.set({ title, price });
     await ticket.save();
