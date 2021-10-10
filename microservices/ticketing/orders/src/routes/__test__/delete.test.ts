@@ -5,9 +5,14 @@ import { Ticket } from "../../models/ticket";
 import { OrderStatus } from "@rdticketing/common";
 import { Order } from "../../models/order";
 import { natsWrapper } from "../../nats-wrapper";
+import mongoose from "mongoose";
 
 it("marks an order as cancelled", async () => {
-  const ticket = Ticket.build({ title: "concert", price: 20 });
+  const ticket = Ticket.build({
+    title: "concert",
+    price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
+  });
   await ticket.save();
   const userCookie = signin();
   const { body: order } = await request(app)
@@ -21,7 +26,11 @@ it("marks an order as cancelled", async () => {
 });
 
 it("emits an event after cancelling event", async () => {
-  const ticket = Ticket.build({ title: "concert", price: 20 });
+  const ticket = Ticket.build({
+    title: "concert",
+    price: 20,
+    id: new mongoose.Types.ObjectId().toHexString(),
+  });
   await ticket.save();
   const userCookie = signin();
   const { body: order } = await request(app)
