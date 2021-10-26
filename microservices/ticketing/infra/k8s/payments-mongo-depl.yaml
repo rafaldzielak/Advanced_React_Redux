@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-mongo # how the deployment is going to find the pod that it actually creates
+  template:
+    metadata:
+      labels:
+        app: payments-mongo # label applied to the pod
+    spec:
+      containers:
+        - name: payments-mongo
+          image: mongo:4.4.8 #from docker hub - official image
+# Service:
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-mongo-srv
+spec:
+  selector:
+    app: payments-mongo #which pods it is going to govern access to
+  ports:
+    - name: db # for logging purposes
+      protocol: TCP
+      port: 27017 # by default mongodb listens for incomming traffic on 27017
+      targetPort: 27017
