@@ -1,5 +1,6 @@
 import { OrderStatus } from "@rdticketing/common";
 import mongoose from "mongoose";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 interface OrderAttrs {
   id: string;
@@ -35,6 +36,9 @@ const orderSchema = new mongoose.Schema(
     },
   }
 );
+
+orderSchema.set("versionKey", "version");
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order({ _id: attrs.id, version: attrs.version, price: attrs.price, userId: attrs.userId });
