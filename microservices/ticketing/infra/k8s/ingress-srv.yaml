@@ -22,6 +22,10 @@ spec:
             backend: #queries with the path above will be send to this backend:
               serviceName: orders-srv
               servicePort: 3000
+          - path: /api/payments/?(.*) # first the request will want to match to this path
+            backend: #queries with the path above will be send to this backend:
+              serviceName: payments-srv
+              servicePort: 3000
           - path: /?(.*)
             backend:
               serviceName: client-srv
