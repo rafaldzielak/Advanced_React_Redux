@@ -20,6 +20,9 @@ export const signin = (id?: string) => {
 
 jest.mock("../nats-wrapper.ts");
 
+process.env.STRIPE_KEY =
+  "sk_test_51HxskkJe6gNNlKVJ0rEgSEOX06R4YW2W40i6oSiG5lHISzele0oBlNjndz4sveCCMIuahWYX8w6UVjtdVY3Fs5he00z4tZl5wU";
+
 let mongo: any;
 beforeAll(async () => {
   process.env.jwt = "lajshdaksj";
