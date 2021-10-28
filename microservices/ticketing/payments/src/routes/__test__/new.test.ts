@@ -66,10 +66,7 @@ it("returns a 201 with valid inputs", async () => {
   await request(app)
     .post("/api/payments")
     .set("Cookie", signin(userId))
-    .send({
-      token: "tok_visa",
-      orderId: order.id,
-    })
+    .send({ token: "tok_visa", orderId: order.id })
     .expect(201);
 
   const stripeCharges = await stripe.charges.list({ limit: 50 });
@@ -80,10 +77,7 @@ it("returns a 201 with valid inputs", async () => {
   expect(stripeCharge).toBeDefined();
   expect(stripeCharge?.currency).toEqual("usd");
 
-  const payment = await Payment.findOne({
-    orderId: order.id,
-    stripeId: stripeCharge!.id,
-  });
+  const payment = await Payment.findOne({ orderId: order.id, stripeId: stripeCharge!.id });
 
   expect(payment).not.toBeNull();
 });
