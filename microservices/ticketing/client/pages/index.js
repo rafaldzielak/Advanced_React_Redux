@@ -1,13 +1,38 @@
 import React from "react";
 
-const LandingPage = ({ currentUser }) => {
+const LandingPage = ({ currentUser, tickets }) => {
   console.log(currentUser);
-  return currentUser ? <h1>You are signed in</h1> : <h1>You are NOT signed in</h1>;
+  console.log(tickets);
+
+  const ticketList = tickets.map((ticket) => {
+    return (
+      <tr key={ticket.id}>
+        <td>{ticket.title}</td>
+        <td>{ticket.price}</td>
+      </tr>
+    );
+  });
+
+  return (
+    <div>
+      <h1>Tickets</h1>
+      <table className='table'>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>{ticketList}</tbody>
+      </table>
+    </div>
+  );
 };
 
 // specific to next.js - if we implement it - next.js will call this function while rendering the app on the server, any data returned from the function will be available as a prop
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  return {};
+  const { data: tickets } = await client.get("/api/tickets");
+  return { tickets };
 };
 
 export default LandingPage;
