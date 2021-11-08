@@ -1,5 +1,11 @@
 import { GraphQLSchema, GraphQLString, GraphQLObjectType } from "graphql";
 
+const books = [
+    { name: "Name of the Wind", genre: "Fantasy", id: "1" },
+    { name: "The Final Empire", genre: "Fantasy", id: "2" },
+    { name: "The Long Earth", genre: "Sci-Fi", id: "3" },
+];
+
 const BookType = new GraphQLObjectType({
     name: "Book",
     fields: () => ({
@@ -22,4 +28,4 @@ const schema = new GraphQLSchema({
     query: RootQuery,
 });
 
-export { schema };
+export { schema as bookSchema };
